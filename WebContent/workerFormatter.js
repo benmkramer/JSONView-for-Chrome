@@ -34,6 +34,11 @@ function valueToHTML(value) {
       if (queryString != '' && /\?/.test(value)) {
         queryString = ''
       }
+
+      if (/^http/.test(value)) {
+        version = '';
+      }
+
       output += decorateWithSpan('"', "type-string") + '<a href="' + version + value + queryString + '">' + version + htmlEncode(value) + '</a>' + decorateWithSpan('"', "type-string")
     } else {
       output += decorateWithSpan('"' + value + '"', "type-string");
