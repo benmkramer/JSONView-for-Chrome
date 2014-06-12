@@ -1,6 +1,7 @@
 var port = chrome.runtime.connect(), collapsers, options, jsonObject;
 
 var queryString = document.location.search;
+var pathName = document.location.pathname;
 
 function displayError(error, loc, offset) {
 	var link = document.createElement("link"), pre = document.body.firstChild.firstChild, text = pre.textContent.substring(offset), start = 0, ranges = [], idx = 0, end, range = document
@@ -116,16 +117,18 @@ function extractData(rawText) {
 
 function processData(data) {
 	var xhr, jsonText;
-	
+
 	function formatToHTML(fnName, offset) {
 		if (!jsonText)
-			return;	
+			return;
+
 		port.postMessage({
 			jsonToHTML : true,
 			json : jsonText,
 			fnName : fnName,
 			offset : offset,
-                        queryString : queryString
+      queryString : queryString,
+      pathName: pathName
 		});
 		try {
 			jsonObject = JSON.parse(jsonText);
@@ -269,7 +272,7 @@ function init(data) {
 				port.postMessage({
 					getError : true,
 					json : json,
-					fnName : fnName
+					fnName : fnName,
 				});
 		if (msg.ongetError) {
 			displayError(msg.error, msg.loc, msg.offset);

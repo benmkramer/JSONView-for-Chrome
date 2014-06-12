@@ -31,14 +31,14 @@ function refreshMenuEntry() {
 			title : "Copy path",
 			contexts : [ "page", "link" ],
 			onclick : function(info, tab) {
-				copy(path);				
+				copy(path);
 			}
 		});
 		copyValueMenuEntryId = chrome.contextMenus.create({
 			title : "Copy value",
 			contexts : [ "page", "link" ],
 			onclick : function(info, tab) {
-				copy(value);				
+				copy(value);
 			}
 		});
 	}
@@ -98,7 +98,8 @@ function init() {
 				workerFormatter.postMessage({
 					json : json,
 					fnName : msg.fnName,
-                                        queryString : msg.queryString
+          queryString : msg.queryString,
+          pathName: msg.pathName
 				});
 			}
 		});
